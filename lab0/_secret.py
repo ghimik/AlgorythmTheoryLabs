@@ -41,7 +41,7 @@ def show():
 
     first_word = secret_message[0][3]
     second_word = secret_message[1][9:13]
-    third_word = secret_message[2][5:16:2]
+    third_word = secret_message[2][5:15:2]
     fourth_word = secret_message[3][7:13][::-1]
     fifth_word = secret_message[4][16:21][::-1]
 
