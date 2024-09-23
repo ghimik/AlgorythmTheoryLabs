@@ -14,7 +14,7 @@ def get_songs_input():
 def calculate_total_time(songs, song_titles):
     return sum(round(song[1], 2) for song in songs if song[0] in song_titles)
 
-def show():
+def main():
     violator_songs_list = [
         ['World in My Eyes', 4.86],
         ['Sweetest Perfection', 4.43],
@@ -56,4 +56,4 @@ def show():
     print(f'А другие три песни звучат {total_time_dict:.2f} минут')
 
 if __name__ == "__main__":
-    show()
+    main()

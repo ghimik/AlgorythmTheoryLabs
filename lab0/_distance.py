@@ -34,7 +34,7 @@ def show_distances(distances):
         for dest, distance in dests.items():
             print(f"{city} -> {dest}: {distance} км")
 
-def show():
+def main():
     sites = get_sites_from_input()
 
     distances = fill_distances(sites)
@@ -42,4 +42,4 @@ def show():
     show_distances(distances)
 
 if __name__ == "__main__":
-    show()
+    main()

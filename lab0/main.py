@@ -1,14 +1,14 @@
-from _distance import show as show_distance
-from _circle import show as show_circle
-from _operations import show as show_operations
-from _favorite_movies import show as show_fav_movies
-from _my_family import show as show_family
-from _zoo import show as show_secret_zoo
-from _songs_list import show as show_songs
-from _secret import show as show_secret
-from _garden import show as show_garden
-from _shopping import show as show_shopping
-from _store import show as show_store
+from _distance import main as show_distance
+from _circle import main as show_circle
+from _operations import main as show_operations
+from _favorite_movies import show_movies as show_fav_movies
+from _my_family import calculate_expression as show_family
+from _zoo import main as show_secret_zoo
+from _songs_list import main as show_songs
+from _secret import main as show_secret
+from _garden import main as show_garden
+from _shopping import main as show_shopping
+from _store import main as show_store
 
 
 def main():

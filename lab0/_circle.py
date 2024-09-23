@@ -42,7 +42,7 @@ def show_point_position(point, radius):
     print(f"Точка с координатами {point} внутри круга: {inside}")
 
 
-def show():
+def main():
     """Основная функция программы."""
     radius = get_circle_radius()
 
@@ -56,4 +56,4 @@ def show():
 
 
 if __name__ == "__main__":
-    show()
+    main()
