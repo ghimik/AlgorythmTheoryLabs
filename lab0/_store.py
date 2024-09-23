@@ -1,18 +1,45 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Есть словарь кодов товаров
-def show():
+def get_goods_input():
+    goods = {}
+    while True:
+        item_name = input("Введите название товара (или 'stop' для завершения): ")
+        if item_name.lower() == 'stop':
+            break
+        item_code = input("Введите код товара: ")
+        goods[item_name] = item_code
+    return goods
 
+def get_store_input():
+    store = {}
+    while True:
+        code = input("Введите код товара (или 'stop' для завершения): ")
+        if code.lower() == 'stop':
+            break
+        quantity = int(input("Введите количество: "))
+        price = float(input("Введите цену: "))
+        if code not in store:
+            store[code] = []
+        store[code].append({'quantity': quantity, 'price': price})
+    return store
 
+def calculate_costs(goods, store):
+    results = {}
+    for item, code in goods.items():
+        if code in store:
+            total_quantity = sum(entry['quantity'] for entry in store[code])
+            total_cost = sum(entry['quantity'] * entry['price'] for entry in store[code])
+            results[item] = (total_quantity, total_cost)
+    return results
+
+def main():
     goods = {
         'Лампа': '12345',
         'Стол': '23456',
         'Диван': '34567',
         'Стул': '45678',
     }
-
-    # Есть словарь списков количества товаров на складе.
 
     store = {
         '12345': [
@@ -33,49 +60,19 @@ def show():
         ],
     }
 
-    # Рассчитать на какую сумму лежит каждого товара на складе
-    # например для ламп
+    print("Вы можете ввести свои товары. Для завершения введите 'stop'.")
+    user_goods = get_goods_input()
+    print("Теперь введите информацию о товарах на складе.")
+    user_store = get_store_input()
 
-    lamps_cost = store[goods['Лампа']][0]['quantity'] * store[goods['Лампа']][0]['price']
-    # или проще (/сложнее ?)
-    lamp_code = goods['Лампа']
-    lamps_item = store[lamp_code][0]
-    lamps_quantity = lamps_item['quantity']
-    lamps_price = lamps_item['price']
-    lamps_cost = lamps_quantity * lamps_price
-    print('Лампа -', lamps_quantity, 'шт, стоимость', lamps_cost, 'руб')
+    if not user_goods:
+        user_goods = goods
+    if not user_store:
+        user_store = store
 
-    # Вывести стоимость каждого вида товара на складе:
-    # один раз распечать сколько всего столов и их общая стоимость,
-    # один раз распечать сколько всего стульев и их общая стоимость,
-    #   и т.д. на складе
-    # Формат строки <товар> - <кол-во> шт, стоимость <общая стоимость> руб
+    costs = calculate_costs(user_goods, user_store)
+    for item, (quantity, cost) in costs.items():
+        print(f'{item} - {quantity} шт, стоимость {cost} руб')
 
-    # WARNING для знающих циклы: БЕЗ циклов. Да, с переменными; да, неэффективно; да, копипаста.
-    # Это задание на ручное вычисление - что бы потом понять как работают циклы и насколько с ними проще жить.
-
-    table_code = goods['Стол']
-    tables_quantity = store[table_code][0]['quantity'] + store[table_code][1]['quantity']
-    tables_price_1 = store[table_code][0]['price']
-    tables_price_2 = store[table_code][1]['price']
-    tables_cost = (store[table_code][0]['quantity'] * tables_price_1 +
-                   store[table_code][1]['quantity'] * tables_price_2)
-    print(f'Стол - {tables_quantity} шт, стоимость {tables_cost} руб')
-
-    sofa_code = goods['Диван']
-    sofas_quantity = store[sofa_code][0]['quantity'] + store[sofa_code][1]['quantity']
-    sofas_price_1 = store[sofa_code][0]['price']
-    sofas_price_2 = store[sofa_code][1]['price']
-    sofas_cost = (store[sofa_code][0]['quantity'] * sofas_price_1 +
-                  store[sofa_code][1]['quantity'] * sofas_price_2)
-    print(f'Диван - {sofas_quantity} шт, стоимость {sofas_cost} руб')
-
-    chair_code = goods['Стул']
-    chairs_quantity = store[chair_code][0]['quantity'] + store[chair_code][1]['quantity'] + store[chair_code][2]['quantity']
-    chairs_price_1 = store[chair_code][0]['price']
-    chairs_price_2 = store[chair_code][1]['price']
-    chairs_price_3 = store[chair_code][2]['price']
-    chairs_cost = (store[chair_code][0]['quantity'] * chairs_price_1 +
-                   store[chair_code][1]['quantity'] * chairs_price_2 +
-                   store[chair_code][2]['quantity'] * chairs_price_3)
-    print(f'Стул - {chairs_quantity} шт, стоимость {chairs_cost} руб')
+if __name__ == "__main__":
+    main()

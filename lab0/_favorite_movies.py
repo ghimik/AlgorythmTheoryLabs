@@ -1,35 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 DELIMETER = ','
-# Есть строка с перечислением фильмов
-def show():
-    my_favorite_movies = 'Терминатор, Пятый элемент, Аватар, Чужие, Назад в будущее'
 
-    # Выведите на консоль с помощью индексации строки, последовательно:
-    #   первый фильм
-    #   последний
-    #   второй
-    #   второй с конца
+def get_favorite_movies():
+    """Возвращает строку с любимыми фильмами."""
+    return input("Введите фильмы: ") or 'Терминатор, Пятый элемент, Аватар, Чужие, Назад в будущее'
 
-    # Запятая не должна выводиться.  Переопределять my_favorite_movies нельзя
-    # Использовать .split() или .find()или другие методы строки нельзя - пользуйтесь только срезами,
-    # как указано в задании!
-
+def extract_movies(movies_string):
+    """Извлекает фильмы из строки и возвращает список."""
     comma_positions = [-2]
-    for i in range(len(my_favorite_movies)):
-        if my_favorite_movies[i] == DELIMETER:
+    for i in range(len(movies_string)):
+        if movies_string[i] == DELIMETER:
             comma_positions.append(i)
-    comma_positions.append(len(my_favorite_movies))
+    comma_positions.append(len(movies_string))
 
-    first_movie = my_favorite_movies[:comma_positions[1]]
-    last_movie = my_favorite_movies[comma_positions[-2] + 2:]
-    second_movie = my_favorite_movies[comma_positions[1] + 2:comma_positions[2]]
-    second_last_movie = my_favorite_movies[comma_positions[-3] + 2:comma_positions[-2]]
+    movies = [
+        movies_string[:comma_positions[1]],
+        movies_string[comma_positions[-2] + 2:],
+        movies_string[comma_positions[1] + 2:comma_positions[2]],
+        movies_string[comma_positions[-3] + 2:comma_positions[-2]],
+    ]
+    return movies
+
+def show_movies():
+    """Выводит на консоль любимые фильмы."""
+    movies_string = get_favorite_movies()
+    movies = extract_movies(movies_string)
 
     # Выводим результаты
-    print(first_movie)
-    print(last_movie)
-    print(second_movie)
-    print(second_last_movie)
+    for movie in movies:
+        print(movie)
 
-show()
+if __name__ == "__main__":
+    show_movies()

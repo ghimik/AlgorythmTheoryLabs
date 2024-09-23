@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Есть список песен группы Depeche Mode со временем звучания с точностью до долей минут
-# Точность указывается в функции round(a, b)
-# где a, это число которое надо округлить, а b количество знаков после запятой
-# более подробно про функцию round смотрите в документации https://docs.python.org/3/search.html?q=round
+def get_songs_input():
+    songs = []
+    while True:
+        song_name = input("Введите название песни (или 'stop' для завершения): ")
+        if song_name.lower() == 'stop':
+            break
+        duration = input("Введите продолжительность песни в минутах: ")
+        songs.append([song_name, float(duration)])
+    return songs
+
+def calculate_total_time(songs, song_titles):
+    return sum(round(song[1], 2) for song in songs if song[0] in song_titles)
+
 def show():
-
-
     violator_songs_list = [
         ['World in My Eyes', 4.86],
         ['Sweetest Perfection', 4.43],
@@ -20,19 +27,16 @@ def show():
         ['Clean', 5.83],
     ]
 
-    # распечатайте общее время звучания трех песен: 'Halo', 'Enjoy the Silence' и 'Clean' в формате
-    #   Три песни звучат ХХХ.XX минут
-    # Обратите внимание, что делать много вычислений внутри print() - плохой стиль.
-    # Лучше заранее вычислить необходимое, а затем в print(xxx, yyy, zzz)
+    print("Вы можете ввести свои песни и их продолжительность. Для завершения введите 'stop'.")
+    user_songs = get_songs_input()
+
+    if not user_songs:
+        user_songs = violator_songs_list
 
     songs_to_sum_list = ['Halo', 'Enjoy the Silence', 'Clean']
-    total_time_list = sum(
-        round(song[1], 2) for song in violator_songs_list if song[0] in songs_to_sum_list
-    )
-
+    total_time_list = calculate_total_time(user_songs, songs_to_sum_list)
     print(f'Три песни звучат {total_time_list:.2f} минут')
 
-    # Есть словарь песен группы Depeche Mode
     violator_songs_dict = {
         'World in My Eyes': 4.76,
         'Sweetest Perfection': 4.43,
@@ -45,12 +49,11 @@ def show():
         'Clean': 5.68,
     }
 
-    # распечатайте общее время звучания трех песен: 'Sweetest Perfection', 'Policy of Truth' и 'Blue Dress'
-    #   А другие три песни звучат ХХХ минут
-
     songs_to_sum_dict = ['Sweetest Perfection', 'Policy of Truth', 'Blue Dress']
     total_time_dict = sum(
         round(violator_songs_dict[song], 2) for song in songs_to_sum_dict
     )
-
     print(f'А другие три песни звучат {total_time_dict:.2f} минут')
+
+if __name__ == "__main__":
+    show()

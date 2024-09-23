@@ -1,29 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Создайте списки:
-def show():
+def calculate_expression():
+    expression1 = (1 + 2) * 3 + 4 + 5
+    expression2 = 1 * (2 + 3) * 4 + 5
+    expression3 = 1 * 2 * 3 + 4 * 5
 
-    # моя семья (минимум 3 элемента, есть еще дедушки и бабушки, если что)
-    my_family = ['Mother', 'Father', 'Sister']
-
-
-    # список списков приблизителного роста членов вашей семьи
-    my_family_height = [
-        # ['имя', рост],
-        ['Mother', 165],
-        ['Father', 171],
-        ['Sister', 173]
-    ]
-
-    # Выведите на консоль рост отца в формате
-    #   Рост отца - ХХ см
-    print(f'Рост отца - {my_family_height[1][1]} см')
+    print(f"Результат выражения (1 + 2) * 3 + 4 + 5 = {expression1}. Облом!")
+    print(f"Результат выражения 1 * 2 * 3 + 4 * 5 = {expression3}. Снова облом!")
+    print(f"Результат выражения 1 * (2 + 3) * 4 + 5 = {expression2}. Ура!!")
 
 
-    # Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
-    #   Общий рост моей семьи - ХХ см
-    total_height = sum([member[1] for member in my_family_height])
-    print(f'Общий рост моей семьи - {total_height} см')
-
-show()
+if __name__ == "__main__":
+    calculate_expression()
