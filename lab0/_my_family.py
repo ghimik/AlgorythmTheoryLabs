@@ -18,7 +18,7 @@ def show():
 
     # Выведите на консоль рост отца в формате
     #   Рост отца - ХХ см
-    print(f'Рост отца - {my_family_height[0][1]} см')
+    print(f'Рост отца - {my_family_height[1][1]} см')
 
 
     # Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
@@ -26,3 +26,4 @@ def show():
     total_height = sum([member[1] for member in my_family_height])
     print(f'Общий рост моей семьи - {total_height} см')
 
+show()
