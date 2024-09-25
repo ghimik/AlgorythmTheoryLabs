@@ -60,7 +60,6 @@ if __name__ == "__main__":
     all_expressions = generate_all_expressions(numbers)
     valid_expressions = filter_expressions(all_expressions, target_value)
 
-    # Вывод всех подходящих выражений
     if valid_expressions:
         print(f"Найденные выражения, равные {target_value}:")
         for expression in valid_expressions:
