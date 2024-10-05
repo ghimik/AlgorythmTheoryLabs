@@ -50,8 +50,7 @@ def filter_expressions(expressions, target):
             continue
     return valid_expressions
 
-
-if __name__ == "__main__":
+def main():
     input_numbers = input("Введите набор чисел, разделенных пробелами (например, 1 2 3 4 5): ")
     numbers = list(map(int, input_numbers.split()))
 
@@ -66,3 +65,6 @@ if __name__ == "__main__":
             print(expression)
     else:
         print(f"Выражения, равные {target_value}, не найдены.")
+
+if __name__ == "__main__":
+    main()

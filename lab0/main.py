@@ -1,6 +1,6 @@
 from _distance import main as show_distance
 from _circle import main as show_circle
-from _operations import calculate_expression as show_operations
+from _operations import main as show_operations
 from _favorite_movies import show_movies as show_fav_movies
 from _my_family import main as show_family
 from _zoo import main as show_secret_zoo

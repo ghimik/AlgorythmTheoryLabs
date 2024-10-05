@@ -2,18 +2,25 @@ import docx
 import openpyxl
 
 from decorators import validate_positive_numbers, log_method_call
+from lab1.particles import Particle
 from particles import CustomParticle
 from particles import Electron
 from particles import Proton
 from particles import Neutron
 
 
+def _represent_particle_(particle: Particle):
+    return {
+            "Specific Charge (C/kg)": particle.specific_charge,
+            "Compton Wavelength (m)": particle.compton_wavelength,
+        }
+
 
 class ParticleCalculator:
     """Класс для вычисления свойств частиц."""
 
     def __init__(self):
-        self.particles = {
+        self.particles: dict[str: Particle] = {
             "electron": Electron(),
             "proton": Proton(),
             "neutron": Neutron()
@@ -24,10 +31,7 @@ class ParticleCalculator:
         """Отображение результатов расчета для всех частиц."""
         results = {}
         for name, particle in self.particles.items():
-            results[name] = {
-                "Specific Charge (C/kg)": particle.specific_charge,
-                "Compton Wavelength (m)": particle.compton_wavelength,
-            }
+            results[name] = _represent_particle_(particle)
         return results
 
     @log_method_call
@@ -83,7 +87,10 @@ class ParticleCalculator:
             mass = float(input("Enter mass (kg): "))
             charge = float(input("Enter charge (C): "))
             self.add_custom_particle(mass, charge)
-            print(f"Custom particle created: {self.particles['custom']}")
+            particle: Particle = self.particles['custom']
+            print(f"Custom particle created: {particle}")
+            for k,v in _represent_particle_(particle).items():
+                print(f"{k}: {v}")
 
         save_choice = input("Would you like to save results? (docx/xlsx/no): ").strip().lower()
         if save_choice == "docx":
