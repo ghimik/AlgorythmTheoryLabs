@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-import math
 
 h = 6.62607015e-34  # постоянная Планка
 c = 299792458  # скорость света
