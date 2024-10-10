@@ -16,5 +16,17 @@ class WordsProvider(ABC):
     def get_adjectives(self):
         pass
 
+    @abstractmethod
+    def add_noun(self, noun):
+        pass
+
+    @abstractmethod
+    def add_verb(self, verb):
+        pass
+
+    @abstractmethod
+    def add_adjective(self, adj):
+        pass
+
     def generate_word_set(self) -> WordSet:
         return WordSet(self.get_nouns(), self.get_verbs(), self.get_adjectives())

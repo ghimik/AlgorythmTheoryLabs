@@ -31,3 +31,12 @@ class InMemoryWordsProvider(WordsProvider):
 
     def get_adjectives(self):
         return self.adjectives
+
+    def add_noun(self, noun):
+        self.nouns.append(noun)
+
+    def add_verb(self, verb):
+        self.verbs.append(verb)
+
+    def add_adjective(self, adj):
+        self.adjectives.append(adj)

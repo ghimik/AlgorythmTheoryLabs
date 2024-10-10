@@ -59,6 +59,9 @@ class QuoteGeneratorApp(QWidget):
 
 
 if __name__ == "__main__":
+    # TODO pytest
+    # TODO ввод новых слов в бд
+    # TODO меню и выход
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
     window.resize(400, 300)

@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 
 import uvicorn
 
-from lab2.data.InMemoryWordsProvider import InMemoryWordsProvider
+from lab2.data.PgDbWordsProvider import PgDbWordsProvider
 from lab2.phase.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
 from lab2.phase.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
 from lab2.phase.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
@@ -13,7 +12,13 @@ port = 8001
 
 app = FastAPI()
 
-words_provider = InMemoryWordsProvider()
+words_provider = PgDbWordsProvider(
+        host='localhost',
+        port='5432',
+        dbname='lab3',
+        user='postgres',
+        password='admin'
+    )
 gangsta_factory = GangstaTemplateFactory()
 romantic_factory = RomanticTemplateFactory()
 philosophical_factory = PhilosophicalTemplateFactory()
