@@ -6,9 +6,22 @@ from lab2.phase.Verb import Verb
 
 class InMemoryWordsProvider(WordsProvider):
     def __init__(self):
-        self.nouns = [Noun("свет"), Noun("тень"), Noun("жизнь"), Noun("сердце"), Noun("любовь")]
-        self.verbs = [Verb("гореть"), Verb("блестеть"), Verb("лететь"), Verb("кружиться"), Verb("цвести")]
-        self.adjectives = [Adjective("яркий"), Adjective("грустный"), Adjective("волнительный"), Adjective("светлый")]
+        self.nouns = [
+            Noun("свет"), Noun("тень"), Noun("жизнь"), Noun("сердце"), Noun("любовь"),
+            Noun("душа"), Noun("путь"), Noun("мир"), Noun("мысль"), Noun("мечта"),
+            Noun("светило"), Noun("песня"), Noun("время"), Noun("реальность"), Noun("чувство")
+        ]
+        self.verbs = [
+            Verb("гореть"), Verb("блестеть"), Verb("лететь"), Verb("кружиться"), Verb("цвести"),
+            Verb("жить"), Verb("мечтать"), Verb("забывать"), Verb("искать"), Verb("понимать"),
+            Verb("светить"), Verb("танцевать"), Verb("слушать"), Verb("крикнуть"), Verb("петь")
+        ]
+        self.adjectives = [
+            Adjective("яркий"), Adjective("грустный"), Adjective("волнительный"), Adjective("светлый"),
+            Adjective("красивый"), Adjective("нежный"), Adjective("беспечный"), Adjective("сильный"),
+            Adjective("удивительный"), Adjective("мудрый"), Adjective("неизведанный"), Adjective("магический"),
+            Adjective("потрясающий"), Adjective("глубокий"), Adjective("умиротворяющий"), Adjective("тёплый")
+        ]
 
     def get_nouns(self):
         return self.nouns
