@@ -8,7 +8,6 @@ from lab2.phase.templates.factory.PhilosophicalTemplateFactory import RomanticTe
 from lab2.phase.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
 
 
-
 class QuoteGeneratorApp(QWidget):
     def __init__(self):
         super().__init__()
