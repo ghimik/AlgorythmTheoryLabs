@@ -1,30 +1,34 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
-
+from pydantic import BaseModel
 import uvicorn
 
 from lab2.data.PgDbWordsProvider import PgDbWordsProvider
 from lab2.phase.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
-from lab2.phase.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
-from lab2.phase.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
+from lab2.phase.templates.factory.PhilosophicalTemplateFactory import PhilosophicalTemplateFactory
+from lab2.phase.templates.factory.RomanticTemplateFactory import RomanticTemplateFactory
 
 port = 8001
 
 app = FastAPI()
 
 words_provider = PgDbWordsProvider(
-        host='localhost',
-        port='5432',
-        dbname='lab3',
-        user='postgres',
-        password='admin'
-    )
+    host='localhost',
+    port='5432',
+    dbname='lab3',
+    user='postgres',
+    password='admin'
+)
+
 gangsta_factory = GangstaTemplateFactory()
 romantic_factory = RomanticTemplateFactory()
 philosophical_factory = PhilosophicalTemplateFactory()
 
 def to_json(quote):
     return {"quote": quote}
+
+class WordInput(BaseModel):
+    word: str
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
@@ -78,8 +82,29 @@ async def get_philosophical_quote():
     quote = philosophical_factory.create_template()(word_set)
     return to_json(quote)
 
+@app.post("/add/noun")
+async def add_noun(word_input: WordInput):
+    try:
+        words_provider.add_noun(word_input.word)
+        return {"status": "success", "message": f"Существительное '{word_input.word}' добавлено."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/add/verb")
+async def add_verb(word_input: WordInput):
+    try:
+        words_provider.add_verb(word_input.word)
+        return {"status": "success", "message": f"Глагол '{word_input.word}' добавлен."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/add/adjective")
+async def add_adjective(word_input: WordInput):
+    try:
+        words_provider.add_adjective(word_input.word)
+        return {"status": "success", "message": f"Прилагательное '{word_input.word}' добавлено."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=port)
