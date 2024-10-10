@@ -1,11 +1,19 @@
 import sys
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel
 from PySide6.QtCore import Qt
+import requests
+from server import server
 
-from lab2.data.InMemoryWordsProvider import InMemoryWordsProvider
-from lab2.phase.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
-from lab2.phase.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
-from lab2.phase.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
+url = 'http://localhost:' + str(server.port)
+
+def fetch_quote(fetch_url):
+    try:
+        response = requests.get(fetch_url)
+        response.raise_for_status()
+        quote = response.json().get("quote", "Ошибка получения цитаты.")
+        return quote
+    except requests.exceptions.RequestException as e:
+        return "Ошибка при запросе цитаты."
 
 
 class QuoteGeneratorApp(QWidget):
@@ -15,16 +23,12 @@ class QuoteGeneratorApp(QWidget):
         self.setWindowTitle("Генератор Цитат")
         self.setStyleSheet("background-color: #2E2E2E; color: white;")
 
-        self.words_provider = InMemoryWordsProvider()
-        self.gangsta_factory = GangstaTemplateFactory()
-        self.romantic_factory = RomanticTemplateFactory()
-        self.philosophical_factory = PhilosophicalTemplateFactory()
 
         self.quote_label = QLabel("Нажмите кнопку, чтобы сгенерировать цитату!")
         self.quote_label.setAlignment(Qt.AlignCenter)
         self.quote_label.setStyleSheet("font-size: 24px; font-style: italic;")
 
-        self.gangsta_button = QPushButton("Гангста Цитата")
+        self.gangsta_button = QPushButton("Пацанская Цитата")
         self.gangsta_button.clicked.connect(self.generate_gangsta_quote)
 
         self.romantic_button = QPushButton("Романтическая Цитата")
@@ -42,18 +46,15 @@ class QuoteGeneratorApp(QWidget):
         self.setLayout(layout)
 
     def generate_gangsta_quote(self):
-        word_set = self.words_provider.generate_word_set()
-        quote = self.gangsta_factory.create_template()(word_set)
+        quote = fetch_quote(url + "/gangsta")
         self.quote_label.setText(quote)
 
     def generate_romantic_quote(self):
-        word_set = self.words_provider.generate_word_set()
-        quote = self.romantic_factory.create_template()(word_set)
+        quote = fetch_quote(url + "/romantic")
         self.quote_label.setText(quote)
 
     def generate_philosophical_quote(self):
-        word_set = self.words_provider.generate_word_set()
-        quote = self.philosophical_factory.create_template()(word_set)
+        quote = fetch_quote(url + "/philosophical")
         self.quote_label.setText(quote)
 
 
