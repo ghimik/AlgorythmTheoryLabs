@@ -1,20 +1,28 @@
-from lab2.phase.Adjective import Adjective
-from lab2.phase.Noun import Noun
-from lab2.phase.Verb import Verb
-from lab2.phase.WordSet import WordSet
-from lab2.phase.templates.PhilosoficalTemplate import PhilosophicalTemplate
+import random
+
 from lab2.phase.templates.factory.TemplateFactory import TemplateFactory
 
 
-class PhilosophicalTemplateFactory(TemplateFactory):
+def romantic_template_one(word_set):
+    noun = word_set.get_random_noun()
+    verb = word_set.get_random_verb()
+    return f"Любовь одна, а {noun} много. Только {verb} горит в сердце."
+
+
+def romantic_template_two(word_set):
+    noun1 = word_set.get_random_noun()
+    noun2 = word_set.get_random_noun()
+    return f"{noun1} — это не просто {noun2}, это мечта!"
+
+
+def romantic_template_three(word_set):
+    verb = word_set.get_random_verb()
+    return f"В жизни важно не только {verb}, но и чувствовать!"
+
+
+class RomanticTemplateFactory(TemplateFactory):
+    def __init__(self):
+        self.templates = [romantic_template_one, romantic_template_two, romantic_template_three]
+
     def create_template(self):
-        philosophical_words = WordSet(
-
-            # TODO ПОЛУЧЕНИЕ ИЗВНЕ
-
-
-            nouns=[Noun("жизнь"), Noun("смерть"), Noun("время")],
-            verbs=[Verb("опоздать"), Verb("успеть"), Verb("забить")],
-            adjectives=[Adjective("важная"), Adjective("глубокая"), Adjective("простая")]
-        )
-        return PhilosophicalTemplate(philosophical_words)
+        return random.choice(self.templates)

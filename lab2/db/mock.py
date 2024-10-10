@@ -1,0 +1,4 @@
+nouns = []
+verbs = []
+adjectives = []
+

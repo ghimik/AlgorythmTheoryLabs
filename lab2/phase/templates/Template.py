@@ -1,10 +1,6 @@
-from abc import ABC, abstractmethod
+class Template:
+    def __init__(self, template_function):
+        self.template_function = template_function
 
-
-class Template(ABC):
-    def __init__(self, word_set):
-        self.word_set = word_set
-
-    @abstractmethod
-    def generate_phrase(self):
-        pass
+    def generate_phrase(self, word_set):
+        return self.template_function(word_set)
