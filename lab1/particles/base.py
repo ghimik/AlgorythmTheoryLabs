@@ -30,7 +30,6 @@ class Particle(ABC):
     @property
     def compton_wavelength(self):
         """Расчет комптоновской длины волны на основе массы"""
-
         return h / (self.mass * c)
 
     def __str__(self):
