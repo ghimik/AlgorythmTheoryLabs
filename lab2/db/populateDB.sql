@@ -1,3 +1,5 @@
+BEGIN TRANSACTION;
+
 INSERT INTO public.adjective (word)
 VALUES
 ('яркий'),
@@ -21,3 +23,5 @@ VALUES
 ('лететь'),
 ('кружиться'),
 ('цвести');
+
+COMMIT;
