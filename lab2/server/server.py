@@ -6,9 +6,9 @@ from pydantic import BaseModel
 import uvicorn
 
 from lab2.data.PgDbWordsProvider import PgDbWordsProvider
-from lab2.phase.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
-from lab2.phase.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
-from lab2.phase.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
+from lab2.words.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
+from lab2.words.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
+from lab2.words.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
 
 port = 8001
 

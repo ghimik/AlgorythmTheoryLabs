@@ -123,7 +123,7 @@ class QuoteGeneratorApp(QWidget):
 if __name__ == "__main__":
     # TODO pytest
     # TODO docker server
-    # TODO readme
+    # TODO readme и рекуаирменты додедалть
     # TODO свои эксепшены
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
