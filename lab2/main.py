@@ -1,6 +1,8 @@
 import sys
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QInputDialog, QMessageBox
 from PySide6.QtCore import Qt
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PySide6.QtCore import QUrl
 import requests
 from server import server
 
@@ -70,7 +72,12 @@ class QuoteGeneratorApp(QWidget):
 
         self.setLayout(layout)
 
+        self.player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+        self.player.setAudioOutput(self.audio_output)
+
     def generate_gangsta_quote(self):
+        self.play_sound()
         quote = fetch_quote(url + "/gangsta")
         self.quote_label.setText(quote)
 
@@ -93,6 +100,12 @@ class QuoteGeneratorApp(QWidget):
     def add_adjective(self):
         result = add_word(url + "/add/adjective", "прилагательное")
         QMessageBox.information(self, "Результат", result)
+
+    def play_sound(self):
+        # Указываем путь к звуковому файлу (может быть .mp3, .wav и т.д.)
+        file = QUrl.fromLocalFile("resources/static/bezumno.mp3")
+        self.player.setSource(file)
+        self.player.play()
 
 if __name__ == "__main__":
     # TODO pytest
