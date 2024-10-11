@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Showcard Gothic', sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 800px;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+
+.left-section {
+    width: 60%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.background {
+    width: 100%;
+    height: 50%;
+    background-image: url('volk.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.quote {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+    color: white;
+}
+
+.right-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
+}
+
+button:hover {
+    background-color: #555;
+}

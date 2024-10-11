@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="left-section">
+        <div class="background"></div>
+        <div class="quote" id="quote-label">
+            Нажмите кнопку, чтобы сгенерировать цитату!
+        </div>
+    </div>
+    <div class="right-section">
+        <button onclick="generateQuote('gangsta')">Пацанская Цитата</button>
+        <button onclick="generateQuote('romantic')">Романтическая Цитата</button>
+        <button onclick="generateQuote('philosophical')">Философская Цитата</button>
+        <button onclick="addWord('noun')">Добавить Существительное</button>
+        <button onclick="addWord('verb')">Добавить Глагол</button>
+        <button onclick="addWord('adjective')">Добавить Прилагательное</button>
+        <button onclick="exitApp()">Выход</button>
+    </div>
+</div>
+
+
+<script src="/static/script.js"></script>
+</body>
+</html>
