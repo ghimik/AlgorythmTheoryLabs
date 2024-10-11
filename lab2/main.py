@@ -41,7 +41,7 @@ class QuoteGeneratorApp(QWidget):
         self.quote_label.setStyleSheet("""
             font-size: 40px;
             font-style: italic;
-            font-family: 'Showcard gothic';
+            font-family: 'Haettenschweiler';
             color: white;
             margin-top: 300px;
         """)
@@ -125,7 +125,6 @@ if __name__ == "__main__":
     # TODO docker server
     # TODO readme
     # TODO свои эксепшены
-    # TODO веб интерфейс доделать
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
     window.resize(500, 600)
