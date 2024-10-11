@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, Q
 from PySide6.QtCore import Qt
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtCore import QUrl
+from PySide6.QtGui import QPainter, QPixmap
 import requests
 from server import server
 
@@ -33,12 +34,17 @@ class QuoteGeneratorApp(QWidget):
         super().__init__()
 
         self.setWindowTitle("Генератор Цитат")
-        self.setStyleSheet("background-color: #2E2E2E; color: white;")
+        self.background = QPixmap('server/resources/static/volk.png')
 
         self.quote_label = QLabel("Нажмите кнопку, чтобы сгенерировать цитату!")
         self.quote_label.setAlignment(Qt.AlignCenter)
-        self.quote_label.setStyleSheet("font-size: 24px; font-style: italic;")
-
+        self.quote_label.setStyleSheet("""
+            font-size: 40px;
+            font-style: italic;
+            font-family: 'Showcard gothic';
+            color: white;
+            margin-top: 300px;
+        """)
         self.gangsta_button = QPushButton("Пацанская Цитата")
         self.gangsta_button.clicked.connect(self.generate_gangsta_quote)
 
@@ -76,6 +82,14 @@ class QuoteGeneratorApp(QWidget):
         self.audio_output = QAudioOutput()
         self.player.setAudioOutput(self.audio_output)
 
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        window_rect = self.rect()
+        background_rect = window_rect.adjusted(0, 0, 0, -window_rect.height() // 2)
+        painter.drawPixmap(background_rect, self.background)
+        painter.fillRect(0, self.height() // 2, self.width(), self.height() // 2, Qt.black)
+
+
     def generate_gangsta_quote(self):
         self.play_sound()
         quote = fetch_quote(url + "/gangsta")
@@ -102,8 +116,7 @@ class QuoteGeneratorApp(QWidget):
         QMessageBox.information(self, "Результат", result)
 
     def play_sound(self):
-        # Указываем путь к звуковому файлу (может быть .mp3, .wav и т.д.)
-        file = QUrl.fromLocalFile("resources/static/bezumno.mp3")
+        file = QUrl.fromLocalFile("server/resources/static/bezumno.mp3")
         self.player.setSource(file)
         self.player.play()
 
@@ -115,6 +128,6 @@ if __name__ == "__main__":
     # TODO веб интерфейс доделать
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
-    window.resize(400, 400)
+    window.resize(500, 600)
     window.show()
     sys.exit(app.exec())
