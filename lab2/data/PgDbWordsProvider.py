@@ -1,10 +1,10 @@
 import psycopg2
 from psycopg2 import sql
 
-from lab2.data.WordsProvider import WordsProvider
-from lab2.words.Adjective import Adjective
-from lab2.words.Noun import Noun
-from lab2.words.Verb import Verb
+from data.WordsProvider import WordsProvider
+from words.Adjective import Adjective
+from words.Noun import Noun
+from words.Verb import Verb
 
 
 def _create_word_instance(table_name, word):

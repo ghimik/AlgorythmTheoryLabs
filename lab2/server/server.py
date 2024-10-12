@@ -5,21 +5,21 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import uvicorn
 
-from lab2.data.PgDbWordsProvider import PgDbWordsProvider
-from lab2.words.templates.factory.GangstaTemplateFactory import GangstaTemplateFactory
-from lab2.words.templates.factory.PhilosophicalTemplateFactory import RomanticTemplateFactory
-from lab2.words.templates.factory.RomanticTemplateFactory import PhilosophicalTemplateFactory
+from data.PgDbWordsProvider import PgDbWordsProvider
+from words.GangstaTemplateFactory import GangstaTemplateFactory
+from words.PhilosophicalTemplateFactory import RomanticTemplateFactory
+from words.RomanticTemplateFactory import PhilosophicalTemplateFactory
 
 port = 8001
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="resources/static"), name="static")
+app.mount("/static", StaticFiles(directory="server/resources/static"), name="static")
 
-templates = Jinja2Templates(directory="resources/templates")
+templates = Jinja2Templates(directory="server/resources/templates")
 
 words_provider = PgDbWordsProvider(
-    host='localhost',
+    host='db',
     port='5432',
     dbname='lab3',
     user='postgres',

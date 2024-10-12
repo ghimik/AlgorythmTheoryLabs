@@ -1,6 +1,7 @@
 import random
 
-from lab2.words.templates.factory.TemplateFactory import TemplateFactory
+from words import TemplateFactory
+
 
 def philosophical_template_one(word_set):
     verb1 = word_set.get_random_verb()
