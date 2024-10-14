@@ -34,8 +34,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
-USER appuser
+# костыль
+USER root
 
 # Copy the source code into the container.
 COPY . .
@@ -43,6 +43,4 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8001
 
-# Run the application.
-CMD ["alembic", "upgrade", "head"]
 CMD uvicorn 'server.server:app' --host=0.0.0.0 --port=8001

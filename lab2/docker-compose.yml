@@ -5,8 +5,7 @@ services:
     ports:
       - 8001:8001
     depends_on:
-      db:
-        condition: service_healthy
+      - db
   db:
     image: postgres
     restart: always
@@ -25,6 +24,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  migration:
+    build:
+      context: ./migration
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+
+
+
 volumes:
   db-data:
 secrets:
