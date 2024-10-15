@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from lab2.words.WordSet import WordSet
+from words.WordSet import WordSet
 
 
 class WordsProvider(ABC):

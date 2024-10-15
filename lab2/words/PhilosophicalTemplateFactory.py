@@ -1,6 +1,6 @@
 import random
 
-from lab2.words.templates.factory.TemplateFactory import TemplateFactory
+from words.TemplateFactory import TemplateFactory
 
 
 def romantic_template_one(word_set):
