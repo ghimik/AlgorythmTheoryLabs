@@ -7,6 +7,10 @@ from words.Adjective import Adjective
 from words.Noun import Noun
 from words.Verb import Verb
 
+from exceptions.DuplicateWordException import DuplicateWordException
+
+from exceptions.WordNotFoundException import WordsNotFoundException
+
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -47,15 +51,23 @@ class PgDbWordsProvider(WordsProvider):
                     cursor.execute(sql.SQL("SELECT word FROM {}").format(sql.Identifier(table_name)))
                     words = cursor.fetchall()
                     f_words = [_create_word_instance(table_name, word[0]) for word in words]
+                    if len(f_words) == 0:
+                        raise WordsNotFoundException(table_name)
                     logger.info(f"Успешно получено {len(f_words)} слов из таблицы {table_name}")
                     return f_words
+        except WordsNotFoundException as wne:
+            logger.error(f"Ошибка, слова в таблице {table_name} не найдены")
+            return []
         except Exception as e:
             logger.error(f"Ошибка при получении слов из таблицы {table_name}: {e}")
             return []
 
     def _add_word(self, table_name, word):
         try:
-            logger.debug(f"Добавление слова '{word}' в таблицу: {table_name}")
+            existing_words = self._get_words(table_name)
+            if word in [w.word for w in existing_words]:
+                raise DuplicateWordException(word, table_name)
+
             with psycopg2.connect(**self.connection_params) as conn:
                 with conn.cursor() as cursor:
                     cursor.execute(
@@ -64,6 +76,9 @@ class PgDbWordsProvider(WordsProvider):
                     )
                     conn.commit()
                     logger.info(f"Слово '{word}' успешно добавлено в таблицу {table_name}")
+        except DuplicateWordException as e:
+            logger.error(e)
+            raise
         except Exception as e:
             logger.error(f"Ошибка при добавлении слова '{word}' в таблицу {table_name}: {e}")
 
