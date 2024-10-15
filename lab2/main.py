@@ -121,8 +121,6 @@ class QuoteGeneratorApp(QWidget):
         self.player.play()
 
 if __name__ == "__main__":
-    # TODO readme и рекуаирменты додедалть
-    # TODO свои эксепшены
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
     window.resize(500, 600)
