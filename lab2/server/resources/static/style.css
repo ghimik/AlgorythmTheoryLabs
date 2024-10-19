@@ -4,6 +4,32 @@
     box-sizing: border-box;
 }
 
+.graph-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+#activity-graph {
+    width: 100%;
+    height: auto;
+}
+
+#close-graph-btn {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#close-graph-btn:hover {
+    background-color: #555;
+}
+
+
 body {
     font-family: 'Haettenschweiler', sans-serif;
     background-color: black;

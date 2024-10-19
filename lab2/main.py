@@ -1,9 +1,10 @@
 import sys
-from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QInputDialog, QMessageBox
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QInputDialog, QMessageBox
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QPixmap
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtCore import QUrl
-from PySide6.QtGui import QPainter, QPixmap
+from PySide6.QtGui import QPainter
 import requests
 from server import server
 
@@ -36,6 +37,7 @@ class QuoteGeneratorApp(QWidget):
         self.setWindowTitle("Генератор Цитат")
         self.background = QPixmap('server/resources/static/volk.png')
 
+        # Лейбл для цитат
         self.quote_label = QLabel("Нажмите кнопку, чтобы сгенерировать цитату!")
         self.quote_label.setAlignment(Qt.AlignCenter)
         self.quote_label.setStyleSheet("""
@@ -45,6 +47,12 @@ class QuoteGeneratorApp(QWidget):
             color: white;
             margin-top: 300px;
         """)
+
+        self.graph_label = QLabel()
+        self.graph_label.setAlignment(Qt.AlignCenter)
+        self.graph_label.setStyleSheet("background-color: white;")
+        self.graph_label.setPixmap(QPixmap())
+
         self.gangsta_button = QPushButton("Пацанская Цитата")
         self.gangsta_button.clicked.connect(self.generate_gangsta_quote)
 
@@ -63,20 +71,32 @@ class QuoteGeneratorApp(QWidget):
         self.add_adjective_button = QPushButton("Добавить Прилагательное")
         self.add_adjective_button.clicked.connect(self.add_adjective)
 
+        self.load_graph_button = QPushButton("Показать график активности")
+        self.load_graph_button.clicked.connect(self.load_activity_graph)
+
         self.exit_button = QPushButton("Выход")
         self.exit_button.clicked.connect(self.close)
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.quote_label)
-        layout.addWidget(self.gangsta_button)
-        layout.addWidget(self.romantic_button)
-        layout.addWidget(self.philosophical_button)
-        layout.addWidget(self.add_noun_button)
-        layout.addWidget(self.add_verb_button)
-        layout.addWidget(self.add_adjective_button)
-        layout.addWidget(self.exit_button)
+        main_layout = QHBoxLayout()
 
-        self.setLayout(layout)
+        left_layout = QVBoxLayout()
+        left_layout.addWidget(self.graph_label)
+
+        right_layout = QVBoxLayout()
+        right_layout.addWidget(self.quote_label)
+        right_layout.addWidget(self.gangsta_button)
+        right_layout.addWidget(self.romantic_button)
+        right_layout.addWidget(self.philosophical_button)
+        right_layout.addWidget(self.add_noun_button)
+        right_layout.addWidget(self.add_verb_button)
+        right_layout.addWidget(self.add_adjective_button)
+        right_layout.addWidget(self.load_graph_button)
+        right_layout.addWidget(self.exit_button)
+
+        main_layout.addLayout(left_layout, 1)  # Левая часть занимает 1/3 ширины
+        main_layout.addLayout(right_layout, 2)  # Правая часть занимает 2/3 ширины
+
+        self.setLayout(main_layout)
 
         self.player = QMediaPlayer()
         self.audio_output = QAudioOutput()
@@ -88,7 +108,6 @@ class QuoteGeneratorApp(QWidget):
         background_rect = window_rect.adjusted(0, 0, 0, -window_rect.height() // 2)
         painter.drawPixmap(background_rect, self.background)
         painter.fillRect(0, self.height() // 2, self.width(), self.height() // 2, Qt.black)
-
 
     def generate_gangsta_quote(self):
         self.play_sound()
@@ -120,9 +139,23 @@ class QuoteGeneratorApp(QWidget):
         self.player.setSource(file)
         self.player.play()
 
+    def load_activity_graph(self):
+        # Загружаем график с сервера
+        try:
+            response = requests.get(url + "/activity-graph", stream=True)
+            if response.status_code == 200:
+                graph_data = response.content
+                pixmap = QPixmap()
+                pixmap.loadFromData(graph_data)
+                self.graph_label.setPixmap(pixmap.scaled(self.graph_label.size(), Qt.KeepAspectRatio))
+            else:
+                QMessageBox.warning(self, "Ошибка", "Не удалось загрузить график активности.")
+        except requests.exceptions.RequestException as e:
+            QMessageBox.warning(self, "Ошибка", "Ошибка при запросе графика активности.")
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = QuoteGeneratorApp()
-    window.resize(500, 600)
+    window.resize(800, 600)
     window.show()
     sys.exit(app.exec())
