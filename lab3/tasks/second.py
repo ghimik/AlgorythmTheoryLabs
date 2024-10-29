@@ -9,7 +9,3 @@ def multiples_of_three(a):
         yield a
         a += 3
 
-
-gen = multiples_of_three(-100)
-print([next(gen) for _ in range(20)])
-

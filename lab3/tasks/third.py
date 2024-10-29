@@ -11,5 +11,3 @@ def filter_valid_emails(emails_string):
         print(f"Ошибка обработки email-адресов: {e}")
         return []
 
-emails_input = "@test@example.com wrong_email.com another.correct@domain.com"
-print(filter_valid_emails(emails_input))
