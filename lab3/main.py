@@ -40,7 +40,7 @@ class GeneratorApp(QWidget):
 
     def display_random_notes(self):
         try:
-            random_notes = generate_random_notes()  # Используем функцию из tasks.first
+            random_notes = generate_random_notes()
             self.notes_output.setText(", ".join(random_notes))
         except Exception as e:
             QMessageBox.critical(self, "Ошибка генерации", f"Произошла ошибка: {e}")
