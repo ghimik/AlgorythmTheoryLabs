@@ -68,21 +68,21 @@ def test_db_get_adjectives(db_provider):
     adjectives = db_provider.get_adjectives()
     assert len(adjectives) > 0
     assert isinstance(adjectives[0], Adjective)
-#
-# def test_db_add_noun(db_provider):
-#     new_noun = "звезда"
-#     db_provider.add_noun(new_noun)
-#     nouns = db_provider.get_nouns()
-#     assert any(n.word == new_noun for n in nouns)
-#
-# def test_db_add_verb(db_provider):
-#     new_verb = "светить"
-#     db_provider.add_verb(new_verb)
-#     verbs = db_provider.get_verbs()
-#     assert any(v.word == new_verb for v in verbs)
-#
-# def test_db_add_adjective(db_provider):
-#     new_adjective = "блестящий"
-#     db_provider.add_adjective(new_adjective)
-#     adjectives = db_provider.get_adjectives()
-#     assert any(a.word == new_adjective for a in adjectives)
+
+def test_db_add_noun(db_provider):
+    new_noun = "полковник"
+    db_provider.add_noun(new_noun)
+    nouns = db_provider.get_nouns()
+    assert any(n.word == new_noun for n in nouns)
+
+def test_db_add_verb(db_provider):
+    new_verb = "гонять"
+    db_provider.add_verb(new_verb)
+    verbs = db_provider.get_verbs()
+    assert any(v.word == new_verb for v in verbs)
+
+def test_db_add_adjective(db_provider):
+    new_adjective = "мертвый"
+    db_provider.add_adjective(new_adjective)
+    adjectives = db_provider.get_adjectives()
+    assert any(a.word == new_adjective for a in adjectives)

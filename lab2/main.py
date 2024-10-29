@@ -37,7 +37,7 @@ class QuoteGeneratorApp(QWidget):
         self.setWindowTitle("Генератор Цитат")
         self.background = QPixmap('server/resources/static/volk.png')
 
-        # Лейбл для цитат
+        # лейбл для цитат
         self.quote_label = QLabel("Нажмите кнопку, чтобы сгенерировать цитату!")
         self.quote_label.setAlignment(Qt.AlignCenter)
         self.quote_label.setStyleSheet("""
@@ -93,8 +93,8 @@ class QuoteGeneratorApp(QWidget):
         right_layout.addWidget(self.load_graph_button)
         right_layout.addWidget(self.exit_button)
 
-        main_layout.addLayout(left_layout, 1)  # Левая часть занимает 1/3 ширины
-        main_layout.addLayout(right_layout, 2)  # Правая часть занимает 2/3 ширины
+        main_layout.addLayout(left_layout, 1)
+        main_layout.addLayout(right_layout, 2)
 
         self.setLayout(main_layout)
 
@@ -140,7 +140,6 @@ class QuoteGeneratorApp(QWidget):
         self.player.play()
 
     def load_activity_graph(self):
-        # Загружаем график с сервера
         try:
             response = requests.get(url + "/activity-graph", stream=True)
             if response.status_code == 200:

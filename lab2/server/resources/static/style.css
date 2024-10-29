@@ -2,6 +2,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: 2px solid;
+    animation: rgb-outline 3s infinite;
+
+}
+
+
+@keyframes rgb-outline {
+    0% {
+        outline-color: red;
+    }
+    33% {
+        outline-color: green;
+    }
+    66% {
+        outline-color: blue;
+    }
+    100% {
+        outline-color: red;
+    }
 }
 
 .graph-container {
@@ -29,7 +48,6 @@
     background-color: #555;
 }
 
-
 body {
     font-family: 'Haettenschweiler', sans-serif;
     background-color: black;
@@ -47,6 +65,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
     position: relative;
+    border: none;
+    border-radius: 5px;
 }
 
 .left-section {
